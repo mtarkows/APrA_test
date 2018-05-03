@@ -1,0 +1,455 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="data/reasverdesprivadasygrandesprediosporComuna_0.js"></script>
+        <script src="data/reasverdespublicasporComuna_1.js"></script>
+        <script src="data/reasverdesprivadasygrandespredios_2.js"></script>
+        <script src="data/reasverdespublicas_3.js"></script>
+        <script>
+        var highlightLayer;
+        function highlightFeature(e) {
+            highlightLayer = e.target;
+
+            if (e.target.feature.geometry.type === 'LineString') {
+              highlightLayer.setStyle({
+                color: '#ffff00',
+              });
+            } else {
+              highlightLayer.setStyle({
+                color: "#ff0000",
+				weight: 3
+              });
+            }
+        }
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        })
+        var hash = new L.Hash(map);
+        map.attributionControl.addAttribution('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a>');
+        var bounds_group = new L.featureGroup([]);
+        var basemap0 = L.tileLayer('http://{s}.www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+            maxZoom: 28
+        });
+        basemap0.addTo(map);
+        function setBounds() {
+            if (bounds_group.getLayers().length) {
+                map.fitBounds(bounds_group.getBounds());
+            }
+        }
+        function pop_reasverdesprivadasygrandesprediosporComuna_0(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Comuna</th>\
+                        <td>' + (feature.properties['COMUNAS'] !== null ? Autolinker.link(String(feature.properties['COMUNAS'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">%</th>\
+                        <td>' + (feature.properties['EVPUBLPERC'] !== null ? Autolinker.link(String(feature.properties['EVPUBLPERC'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Áreas verdes privadas y grandes predios (m²)</th>\
+                        <td>' + (feature.properties['EV_PRIV_AR'] !== null ? Autolinker.link(String(feature.properties['EV_PRIV_AR'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">%</th>\
+                        <td>' + (feature.properties['EVPRIVPERC'] !== null ? Autolinker.link(String(feature.properties['EVPRIVPERC'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_reasverdesprivadasygrandesprediosporComuna_0_0(feature) {
+            if (feature.properties['q2wHide_EVPRIVNO'] >= 0.000000 && feature.properties['q2wHide_EVPRIVNO'] <= 2.000000 ) {
+                return {
+                pane: 'pane_reasverdesprivadasygrandesprediosporComuna_0',
+                opacity: 1,
+                color: 'rgba(0,0,0,0.5)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,245,235,0.5)',
+            }
+            }
+            if (feature.properties['q2wHide_EVPRIVNO'] >= 2.000000 && feature.properties['q2wHide_EVPRIVNO'] <= 4.000000 ) {
+                return {
+                pane: 'pane_reasverdesprivadasygrandesprediosporComuna_0',
+                opacity: 1,
+                color: 'rgba(0,0,0,0.5)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(254,210,166,0.5)',
+            }
+            }
+            if (feature.properties['q2wHide_EVPRIVNO'] >= 4.000000 && feature.properties['q2wHide_EVPRIVNO'] <= 10.000000 ) {
+                return {
+                pane: 'pane_reasverdesprivadasygrandesprediosporComuna_0',
+                opacity: 1,
+                color: 'rgba(0,0,0,0.5)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(253,146,67,0.5)',
+            }
+            }
+            if (feature.properties['q2wHide_EVPRIVNO'] >= 10.000000 && feature.properties['q2wHide_EVPRIVNO'] <= 18.000000 ) {
+                return {
+                pane: 'pane_reasverdesprivadasygrandesprediosporComuna_0',
+                opacity: 1,
+                color: 'rgba(0,0,0,0.5)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(223,79,5,0.5)',
+            }
+            }
+            if (feature.properties['q2wHide_EVPRIVNO'] >= 18.000000 && feature.properties['q2wHide_EVPRIVNO'] <= 31.360000 ) {
+                return {
+                pane: 'pane_reasverdesprivadasygrandesprediosporComuna_0',
+                opacity: 1,
+                color: 'rgba(0,0,0,0.5)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(127,39,4,0.5)',
+            }
+            }
+        }
+        map.createPane('pane_reasverdesprivadasygrandesprediosporComuna_0');
+        map.getPane('pane_reasverdesprivadasygrandesprediosporComuna_0').style.zIndex = 400;
+        map.getPane('pane_reasverdesprivadasygrandesprediosporComuna_0').style['mix-blend-mode'] = 'normal';
+        var layer_reasverdesprivadasygrandesprediosporComuna_0 = new L.geoJson(json_reasverdesprivadasygrandesprediosporComuna_0, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_reasverdesprivadasygrandesprediosporComuna_0',
+            onEachFeature: pop_reasverdesprivadasygrandesprediosporComuna_0,
+            style: style_reasverdesprivadasygrandesprediosporComuna_0_0,
+        });
+        bounds_group.addLayer(layer_reasverdesprivadasygrandesprediosporComuna_0);
+        function pop_reasverdespublicasporComuna_1(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Comuna</th>\
+                        <td>' + (feature.properties['COMUNAS'] !== null ? Autolinker.link(String(feature.properties['COMUNAS'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Área (m²)</th>\
+                        <td>' + (feature.properties['AREACOM'] !== null ? Autolinker.link(String(feature.properties['AREACOM'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Áreas verdes publicas (m²)</th>\
+                        <td>' + (feature.properties['EV_PUBL_AR'] !== null ? Autolinker.link(String(feature.properties['EV_PUBL_AR'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">%</th>\
+                        <td>' + (feature.properties['EVPUBLPERC'] !== null ? Autolinker.link(String(feature.properties['EVPUBLPERC'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_reasverdespublicasporComuna_1_0(feature) {
+            if (feature.properties['q2wHide_EVPUBLNO'] >= 0.000000 && feature.properties['q2wHide_EVPUBLNO'] <= 2.000000 ) {
+                return {
+                pane: 'pane_reasverdespublicasporComuna_1',
+                opacity: 1,
+                color: 'rgba(0,0,0,0.5)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,245,235,0.5)',
+            }
+            }
+            if (feature.properties['q2wHide_EVPUBLNO'] >= 2.000000 && feature.properties['q2wHide_EVPUBLNO'] <= 4.000000 ) {
+                return {
+                pane: 'pane_reasverdespublicasporComuna_1',
+                opacity: 1,
+                color: 'rgba(0,0,0,0.5)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(254,210,166,0.5)',
+            }
+            }
+            if (feature.properties['q2wHide_EVPUBLNO'] >= 4.000000 && feature.properties['q2wHide_EVPUBLNO'] <= 6.000000 ) {
+                return {
+                pane: 'pane_reasverdespublicasporComuna_1',
+                opacity: 1,
+                color: 'rgba(0,0,0,0.5)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(253,146,67,0.5)',
+            }
+            }
+            if (feature.properties['q2wHide_EVPUBLNO'] >= 6.000000 && feature.properties['q2wHide_EVPUBLNO'] <= 8.000000 ) {
+                return {
+                pane: 'pane_reasverdespublicasporComuna_1',
+                opacity: 1,
+                color: 'rgba(0,0,0,0.5)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(223,79,5,0.5)',
+            }
+            }
+            if (feature.properties['q2wHide_EVPUBLNO'] >= 8.000000 && feature.properties['q2wHide_EVPUBLNO'] <= 25.220000 ) {
+                return {
+                pane: 'pane_reasverdespublicasporComuna_1',
+                opacity: 1,
+                color: 'rgba(0,0,0,0.5)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(127,39,4,0.5)',
+            }
+            }
+        }
+        map.createPane('pane_reasverdespublicasporComuna_1');
+        map.getPane('pane_reasverdespublicasporComuna_1').style.zIndex = 401;
+        map.getPane('pane_reasverdespublicasporComuna_1').style['mix-blend-mode'] = 'normal';
+        var layer_reasverdespublicasporComuna_1 = new L.geoJson(json_reasverdespublicasporComuna_1, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_reasverdespublicasporComuna_1',
+            onEachFeature: pop_reasverdespublicasporComuna_1,
+            style: style_reasverdespublicasporComuna_1_0,
+        });
+        bounds_group.addLayer(layer_reasverdespublicasporComuna_1);
+        function pop_reasverdesprivadasygrandespredios_2(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Nombre</th>\
+                        <td>' + (feature.properties['NOMBRE'] !== null ? Autolinker.link(String(feature.properties['NOMBRE'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Barrio</th>\
+                        <td>' + (feature.properties['BARRIO'] !== null ? Autolinker.link(String(feature.properties['BARRIO'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Area (m²)</th>\
+                        <td>' + (feature.properties['AREA_FORM'] !== null ? Autolinker.link(String(feature.properties['AREA_FORM'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_reasverdesprivadasygrandespredios_2_0() {
+            return {
+                pane: 'pane_reasverdesprivadasygrandespredios_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(8,152,56,1.0)',
+            }
+        }
+        map.createPane('pane_reasverdesprivadasygrandespredios_2');
+        map.getPane('pane_reasverdesprivadasygrandespredios_2').style.zIndex = 402;
+        map.getPane('pane_reasverdesprivadasygrandespredios_2').style['mix-blend-mode'] = 'normal';
+        var layer_reasverdesprivadasygrandespredios_2 = new L.geoJson(json_reasverdesprivadasygrandespredios_2, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_reasverdesprivadasygrandespredios_2',
+            onEachFeature: pop_reasverdesprivadasygrandespredios_2,
+            style: style_reasverdesprivadasygrandespredios_2_0,
+        });
+        bounds_group.addLayer(layer_reasverdesprivadasygrandespredios_2);
+        function pop_reasverdespublicas_3(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Nombre</th>\
+                        <td>' + (feature.properties['NOMBRE_EV'] !== null ? Autolinker.link(String(feature.properties['NOMBRE_EV'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Tipo</th>\
+                        <td>' + (feature.properties['TIPO_EV'] !== null ? Autolinker.link(String(feature.properties['TIPO_EV'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Ubicacion</th>\
+                        <td>' + (feature.properties['UBICACION'] !== null ? Autolinker.link(String(feature.properties['UBICACION'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Barrio</th>\
+                        <td>' + (feature.properties['BARRIO'] !== null ? Autolinker.link(String(feature.properties['BARRIO'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Area (m²)</th>\
+                        <td>' + (feature.properties['AREA_FORM'] !== null ? Autolinker.link(String(feature.properties['AREA_FORM'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_reasverdespublicas_3_0() {
+            return {
+                pane: 'pane_reasverdespublicas_3',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(181,236,0,1.0)',
+            }
+        }
+        map.createPane('pane_reasverdespublicas_3');
+        map.getPane('pane_reasverdespublicas_3').style.zIndex = 403;
+        map.getPane('pane_reasverdespublicas_3').style['mix-blend-mode'] = 'normal';
+        var layer_reasverdespublicas_3 = new L.geoJson(json_reasverdespublicas_3, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_reasverdespublicas_3',
+            onEachFeature: pop_reasverdespublicas_3,
+            style: style_reasverdespublicas_3_0,
+        });
+        bounds_group.addLayer(layer_reasverdespublicas_3);
+        var baseMaps = {};
+        L.control.layers({'Áreas verdes publicas por Comuna (%)<br /><table><tr><td style="text-align: center;"><img src="legend_naranja/reasverdespublicasporComuna_1_0002000.png" /></td><td> 0.00 - 2.00 </td></tr><tr><td style="text-align: center;"><img src="legend_naranja/reasverdespublicasporComuna_1_2004001.png" /></td><td> 2.00 - 4.00 </td></tr><tr><td style="text-align: center;"><img src="legend_naranja/reasverdespublicasporComuna_1_4006002.png" /></td><td> 4.00 - 6.00 </td></tr><tr><td style="text-align: center;"><img src="legend_naranja/reasverdespublicasporComuna_1_6008003.png" /></td><td> 6.00 - 8.00 </td></tr><tr><td style="text-align: center;"><img src="legend_naranja/reasverdespublicasporComuna_1_8004.png" /></td><td> 8.00+</td></tr></table>': layer_reasverdespublicasporComuna_1,'Áreas verdes privadas y grandes predios por Comuna (%)<br /><table><tr><td style="text-align: center;"><img src="legend_naranja/reasverdesprivadasygrandesprediosporComuna_0_0002000.png" /></td><td>0.00 - 2.00</td></tr><tr><td style="text-align: center;"><img src="legend_naranja/reasverdesprivadasygrandesprediosporComuna_0_2004001.png" /></td><td>2.00 - 4.00</td></tr><tr><td style="text-align: center;"><img src="legend_naranja/reasverdesprivadasygrandesprediosporComuna_0_40010002.png" /></td><td>4.00 - 10.00</td></tr><tr><td style="text-align: center;"><img src="legend_naranja/reasverdesprivadasygrandesprediosporComuna_0_100018003.png" /></td><td>10.00 - 18.00</td></tr><tr><td style="text-align: center;"><img src="legend_naranja/reasverdesprivadasygrandesprediosporComuna_0_18004.png" /></td><td>18.00+</td></tr></table>': layer_reasverdesprivadasygrandesprediosporComuna_0,},{'<img src="legend_naranja/reasverdespublicas_3.png" /> Áreas verdes publicas': layer_reasverdespublicas_3,'<img src="legend_naranja/reasverdesprivadasygrandespredios_2.png" /> Áreas verdes privadas y grandes predios <p>Fuente: DGEV, MAyEP - MDU, 2016</p>': layer_reasverdesprivadasygrandespredios_2,},{collapsed:false}).addTo(map);
+        setBounds();
+        var i = 0;
+        layer_reasverdesprivadasygrandesprediosporComuna_0.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['q2wHide_COM_LAB'] !== null?String('<div style="color: #301003; font-size: 10pt; font-weight: bold; font-family: \'Tahoma\', sans-serif;">' + layer.feature.properties['q2wHide_COM_LAB']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_reasverdesprivadasygrandesprediosporComuna_0'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        var i = 0;
+        layer_reasverdespublicasporComuna_1.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['q2wHide_COM_LAB'] !== null?String('<div style="color: #301003; font-size: 10pt; font-weight: bold; font-family: \'Tahoma\', sans-serif;">' + layer.feature.properties['q2wHide_COM_LAB']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_reasverdespublicasporComuna_1'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        resetLabels([layer_reasverdesprivadasygrandesprediosporComuna_0,layer_reasverdespublicasporComuna_1]);
+        map.on("zoomend", function(){
+            resetLabels([layer_reasverdesprivadasygrandesprediosporComuna_0,layer_reasverdespublicasporComuna_1]);
+        });
+        map.on("layeradd", function(){
+            resetLabels([layer_reasverdesprivadasygrandesprediosporComuna_0,layer_reasverdespublicasporComuna_1]);
+        });
+        map.on("layerremove", function(){
+            resetLabels([layer_reasverdesprivadasygrandesprediosporComuna_0,layer_reasverdespublicasporComuna_1]);
+        });
+		L.control.scale({maxWidth:200,imperial:false}).addTo(map);		
+		L.Control.Watermark = L.Control.extend({
+		onAdd: function(map) {
+        var img = L.DomUtil.create('img');
+        img.src = 'images/north1.svg';
+        img.style.width = '50px';
+		img.style.opacity = '0.7';
+        return img;
+		}});
+		L.control.watermark = function(opts) {
+		return new L.Control.Watermark(opts);
+		}
+		L.control.watermark({ position: 'bottomright' }).addTo(map);
+        </script>
+    </body>
+</html>
