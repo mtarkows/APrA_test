@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="data/TiempodeusopromedioporestacinEcobici2017hhmm_0.js"></script>
+        <script src="data/CantidaddealquileresporestacinEcobici2017_1.js"></script>
+        <script>
+        var highlightLayer;
+        function highlightFeature(e) {
+            highlightLayer = e.target;
+
+            if (e.target.feature.geometry.type === 'LineString') {
+              highlightLayer.setStyle({
+                color: '#ffff00',
+              });
+            } else {
+              highlightLayer.setStyle({
+                color: '#ffff00',
+              });
+            }
+        }
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        })
+        var hash = new L.Hash(map);
+        map.attributionControl.addAttribution('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a>');
+        var bounds_group = new L.featureGroup([]);
+        var basemap0 = L.tileLayer('http://{s}.www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+            maxZoom: 28
+        });
+        basemap0.addTo(map);
+        function setBounds() {
+            if (bounds_group.getLayers().length) {
+                map.fitBounds(bounds_group.getBounds());
+            }
+        }
+        function pop_TiempodeusopromedioporestacinEcobici2017hhmm_0(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Nombre</th>\
+                        <td>' + (feature.properties['NOMBRE'] !== null ? Autolinker.link(String(feature.properties['NOMBRE'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Dirección</th>\
+                        <td>' + (feature.properties['DOMICILIO'] !== null ? Autolinker.link(String(feature.properties['DOMICILIO'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">ID</th>\
+                        <td>' + (feature.properties['NRO_EST'] !== null ? Autolinker.link(String(feature.properties['NRO_EST'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Cantidad de viajes por origen</th>\
+                        <td>' + (feature.properties['CANT_2017'] !== null ? Autolinker.link(String(feature.properties['CANT_2017'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Tiempo promedio de uso por viaje por origen (hh:mm)</th>\
+                        <td>' + (feature.properties['T_PRO_2017'] !== null ? Autolinker.link(String(feature.properties['T_PRO_2017'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_TiempodeusopromedioporestacinEcobici2017hhmm_0_0(feature) {
+            if (feature.properties['q2wHide_TIEMPO_ORI'] >= 0.000000 && feature.properties['q2wHide_TIEMPO_ORI'] <= 22.000000 ) {
+                return {
+                pane: 'pane_TiempodeusopromedioporestacinEcobici2017hhmm_0',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(220,253,4,1.0)',
+            }
+            }
+            if (feature.properties['q2wHide_TIEMPO_ORI'] >= 22.000000 && feature.properties['q2wHide_TIEMPO_ORI'] <= 24.000000 ) {
+                return {
+                pane: 'pane_TiempodeusopromedioporestacinEcobici2017hhmm_0',
+                radius: 6.5,
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(220,253,4,1.0)',
+            }
+            }
+            if (feature.properties['q2wHide_TIEMPO_ORI'] >= 24.000000 && feature.properties['q2wHide_TIEMPO_ORI'] <= 26.000000 ) {
+                return {
+                pane: 'pane_TiempodeusopromedioporestacinEcobici2017hhmm_0',
+                radius: 9.0,
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(220,253,4,1.0)',
+            }
+            }
+            if (feature.properties['q2wHide_TIEMPO_ORI'] >= 26.000000 && feature.properties['q2wHide_TIEMPO_ORI'] <= 28.000000 ) {
+                return {
+                pane: 'pane_TiempodeusopromedioporestacinEcobici2017hhmm_0',
+                radius: 11.5,
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(220,253,4,1.0)',
+            }
+            }
+            if (feature.properties['q2wHide_TIEMPO_ORI'] >= 28.000000 && feature.properties['q2wHide_TIEMPO_ORI'] <= 38.000000 ) {
+                return {
+                pane: 'pane_TiempodeusopromedioporestacinEcobici2017hhmm_0',
+                radius: 14.0,
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(220,253,4,1.0)',
+            }
+            }
+        }
+        map.createPane('pane_TiempodeusopromedioporestacinEcobici2017hhmm_0');
+        map.getPane('pane_TiempodeusopromedioporestacinEcobici2017hhmm_0').style.zIndex = 400;
+        map.getPane('pane_TiempodeusopromedioporestacinEcobici2017hhmm_0').style['mix-blend-mode'] = 'normal';
+        var layer_TiempodeusopromedioporestacinEcobici2017hhmm_0 = new L.geoJson(json_TiempodeusopromedioporestacinEcobici2017hhmm_0, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_TiempodeusopromedioporestacinEcobici2017hhmm_0',
+            onEachFeature: pop_TiempodeusopromedioporestacinEcobici2017hhmm_0,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_TiempodeusopromedioporestacinEcobici2017hhmm_0_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_TiempodeusopromedioporestacinEcobici2017hhmm_0);
+        function pop_CantidaddealquileresporestacinEcobici2017_1(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Nombre</th>\
+                        <td>' + (feature.properties['NOMBRE'] !== null ? Autolinker.link(String(feature.properties['NOMBRE'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Dirección</th>\
+                        <td>' + (feature.properties['DOMICILIO'] !== null ? Autolinker.link(String(feature.properties['DOMICILIO'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">ID</th>\
+                        <td>' + (feature.properties['NRO_EST'] !== null ? Autolinker.link(String(feature.properties['NRO_EST'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Cantidad de viajes por origen</th>\
+                        <td>' + (feature.properties['CANT_2017'] !== null ? Autolinker.link(String(feature.properties['CANT_2017'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Tiempo promedio de uso por viaje por origen (hh:mm)</th>\
+                        <td>' + (feature.properties['T_PRO_2017'] !== null ? Autolinker.link(String(feature.properties['T_PRO_2017'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_CantidaddealquileresporestacinEcobici2017_1_0(feature) {
+            if (feature.properties['q2wHide_CANT_ORIG'] >= 0.000000 && feature.properties['q2wHide_CANT_ORIG'] <= 6000.000000 ) {
+                return {
+                pane: 'pane_CantidaddealquileresporestacinEcobici2017_1',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(8,195,2,1.0)',
+            }
+            }
+            if (feature.properties['q2wHide_CANT_ORIG'] >= 6000.000000 && feature.properties['q2wHide_CANT_ORIG'] <= 8000.000000 ) {
+                return {
+                pane: 'pane_CantidaddealquileresporestacinEcobici2017_1',
+                radius: 6.5,
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(8,195,2,1.0)',
+            }
+            }
+            if (feature.properties['q2wHide_CANT_ORIG'] >= 8000.000000 && feature.properties['q2wHide_CANT_ORIG'] <= 10000.000000 ) {
+                return {
+                pane: 'pane_CantidaddealquileresporestacinEcobici2017_1',
+                radius: 9.0,
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(8,195,2,1.0)',
+            }
+            }
+            if (feature.properties['q2wHide_CANT_ORIG'] >= 10000.000000 && feature.properties['q2wHide_CANT_ORIG'] <= 12000.000000 ) {
+                return {
+                pane: 'pane_CantidaddealquileresporestacinEcobici2017_1',
+                radius: 11.5,
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(8,195,2,1.0)',
+            }
+            }
+            if (feature.properties['q2wHide_CANT_ORIG'] >= 12000.000000 && feature.properties['q2wHide_CANT_ORIG'] <= 29181.000000 ) {
+                return {
+                pane: 'pane_CantidaddealquileresporestacinEcobici2017_1',
+                radius: 14.0,
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(8,195,2,1.0)',
+            }
+            }
+        }
+        map.createPane('pane_CantidaddealquileresporestacinEcobici2017_1');
+        map.getPane('pane_CantidaddealquileresporestacinEcobici2017_1').style.zIndex = 401;
+        map.getPane('pane_CantidaddealquileresporestacinEcobici2017_1').style['mix-blend-mode'] = 'normal';
+        var layer_CantidaddealquileresporestacinEcobici2017_1 = new L.geoJson(json_CantidaddealquileresporestacinEcobici2017_1, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_CantidaddealquileresporestacinEcobici2017_1',
+            onEachFeature: pop_CantidaddealquileresporestacinEcobici2017_1,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_CantidaddealquileresporestacinEcobici2017_1_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_CantidaddealquileresporestacinEcobici2017_1);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'Cantidad de alquileres por estación Ecobici 2017<br /><table><tr><td style="text-align: center;"><img src="legend/CantidaddealquileresporestacinEcobici2017_1_hasta60000.png" /></td><td>hasta 6,000 </td></tr><tr><td style="text-align: center;"><img src="legend/CantidaddealquileresporestacinEcobici2017_1_600080001.png" /></td><td> 6,000 - 8,000 </td></tr><tr><td style="text-align: center;"><img src="legend/CantidaddealquileresporestacinEcobici2017_1_8000100002.png" /></td><td> 8,000 - 10,000 </td></tr><tr><td style="text-align: center;"><img src="legend/CantidaddealquileresporestacinEcobici2017_1_10000120003.png" /></td><td> 10,000 - 12,000 </td></tr><tr><td style="text-align: center;"><img src="legend/CantidaddealquileresporestacinEcobici2017_1_120004.png" /></td><td> 12,000+</td></tr></table>': layer_CantidaddealquileresporestacinEcobici2017_1,'Tiempo de uso promedio por estación Ecobici 2017 (hh:mm)<br /><table><tr><td style="text-align: center;"><img src="legend/TiempodeusopromedioporestacinEcobici2017hhmm_0_hasta0220.png" /></td><td>hasta 0:22</td></tr><tr><td style="text-align: center;"><img src="legend/TiempodeusopromedioporestacinEcobici2017hhmm_0_0220241.png" /></td><td>0:22 - 0:24</td></tr><tr><td style="text-align: center;"><img src="legend/TiempodeusopromedioporestacinEcobici2017hhmm_0_0240262.png" /></td><td>0:24 - 0:26</td></tr><tr><td style="text-align: center;"><img src="legend/TiempodeusopromedioporestacinEcobici2017hhmm_0_0260283.png" /></td><td>0:26 - 0:28</td></tr><tr><td style="text-align: center;"><img src="legend/TiempodeusopromedioporestacinEcobici2017hhmm_0_0284.png" /></td><td>0:28+</td></tr></table><br>Fuente: Ministerio de Modernización,<br>a partir de publicación de Ministerio de Desarrollo Urbano y transporte,<br>SS de Movilidad Sustentable,<br>DG de Movilidad Saludable.<br>Año 2017': layer_TiempodeusopromedioporestacinEcobici2017hhmm_0,},{collapsed:false}).addTo(map);
+        setBounds();
+		L.control.scale({maxWidth:200,imperial:false}).addTo(map);		
+		L.Control.Watermark = L.Control.extend({
+		onAdd: function(map) {
+        var img = L.DomUtil.create('img');
+        img.src = 'images/north1.svg';
+        img.style.width = '50px';
+		img.style.opacity = '0.7';
+        return img;
+		}});
+		L.control.watermark = function(opts) {
+		return new L.Control.Watermark(opts);
+		}
+		L.control.watermark({ position: 'bottomright' }).addTo(map);
+        </script>
+    </body>
+</html>
