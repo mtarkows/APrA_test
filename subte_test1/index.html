@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="data/ReddeSubte_0.js"></script>
+        <script src="data/Cantidaddeviajessegnnmerodeingresosporestacindesubte2017_1.js"></script>
+        <script>
+        var highlightLayer;
+        function highlightFeature(e) {
+            highlightLayer = e.target;
+
+            if (e.target.feature.geometry.type === 'LineString') {
+              highlightLayer.setStyle({
+                color: '#ffff00',
+              });
+            } else {
+              highlightLayer.setStyle({
+                fillColor: '#ffff00',
+                fillOpacity: 1
+              });
+            }
+        }
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        })
+        var hash = new L.Hash(map);
+        map.attributionControl.addAttribution('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a>');
+        var bounds_group = new L.featureGroup([]);
+        var basemap0 = L.tileLayer('http://{s}.www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+            maxZoom: 28
+        });
+        basemap0.addTo(map);
+        function setBounds() {
+            if (bounds_group.getLayers().length) {
+                map.fitBounds(bounds_group.getBounds());
+            }
+        }
+        function pop_ReddeSubte_0(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Línea</th>\
+                        <td>' + (feature.properties['LINEA'] !== null ? Autolinker.link(String(feature.properties['LINEA'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Estaciones</th>\
+                        <td>' + (feature.properties['NRO_EST'] !== null ? Autolinker.link(String(feature.properties['NRO_EST'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_ReddeSubte_0_0(feature) {
+            switch(String(feature.properties['q2wHide_LINEASUB'])) {
+                case 'LINEA A':
+                    return {
+                pane: 'pane_ReddeSubte_0',
+                opacity: 1,
+                color: 'rgba(8,175,197,1.0)',
+                dashArray: '1,5',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 4.0,
+                fillOpacity: 0,
+            }
+                    break;
+                case 'LINEA B':
+                    return {
+                pane: 'pane_ReddeSubte_0',
+                opacity: 1,
+                color: 'rgba(227,26,28,1.0)',
+                dashArray: '1,5',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 4.0,
+                fillOpacity: 0,
+            }
+                    break;
+                case 'LINEA C':
+                    return {
+                pane: 'pane_ReddeSubte_0',
+                opacity: 1,
+                color: 'rgba(40,40,200,1.0)',
+                dashArray: '1,5',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 4.0,
+                fillOpacity: 0,
+            }
+                    break;
+                case 'LINEA D':
+                    return {
+                pane: 'pane_ReddeSubte_0',
+                opacity: 1,
+                color: 'rgba(8,121,51,1.0)',
+                dashArray: '1,5',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 4.0,
+                fillOpacity: 0,
+            }
+                    break;
+                case 'LINEA E':
+                    return {
+                pane: 'pane_ReddeSubte_0',
+                opacity: 1,
+                color: 'rgba(155,20,115,1.0)',
+                dashArray: '1,5',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 4.0,
+                fillOpacity: 0,
+            }
+                    break;
+                case 'LINEA H':
+                    return {
+                pane: 'pane_ReddeSubte_0',
+                opacity: 1,
+                color: 'rgba(242,235,20,1.0)',
+                dashArray: '1,5',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 4.0,
+                fillOpacity: 0,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_ReddeSubte_0');
+        map.getPane('pane_ReddeSubte_0').style.zIndex = 400;
+        map.getPane('pane_ReddeSubte_0').style['mix-blend-mode'] = 'normal';
+        var layer_ReddeSubte_0 = new L.geoJson(json_ReddeSubte_0, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_ReddeSubte_0',
+            onEachFeature: pop_ReddeSubte_0,
+            style: style_ReddeSubte_0_0,
+        });
+        bounds_group.addLayer(layer_ReddeSubte_0);
+        map.addLayer(layer_ReddeSubte_0);
+        function pop_Cantidaddeviajessegnnmerodeingresosporestacindesubte2017_1(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Estacion</th>\
+                        <td>' + (feature.properties['ESTACION'] !== null ? Autolinker.link(String(feature.properties['ESTACION'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Linea</th>\
+                        <td>' + (feature.properties['LINEA'] !== null ? Autolinker.link(String(feature.properties['LINEA'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">ID</th>\
+                        <td>' + (feature.properties['ID'] !== null ? Autolinker.link(String(feature.properties['ID'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Entradas por franja horaria 4-6</th>\
+                        <td>' + (feature.properties['Entradas por franja horaria 4-6'] !== null ? Autolinker.link(String(feature.properties['Entradas por franja horaria 4-6'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Entradas por franja horaria 6-8</th>\
+                        <td>' + (feature.properties['Entradas por franja horaria 6-8'] !== null ? Autolinker.link(String(feature.properties['Entradas por franja horaria 6-8'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Entradas por franja horaria 8-10</th>\
+                        <td>' + (feature.properties['Entradas por franja horaria 8-10'] !== null ? Autolinker.link(String(feature.properties['Entradas por franja horaria 8-10'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Entradas por franja horaria 10-12</th>\
+                        <td>' + (feature.properties['Entradas por franja horaria 10-12'] !== null ? Autolinker.link(String(feature.properties['Entradas por franja horaria 10-12'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Entradas por franja horaria 12-14</th>\
+                        <td>' + (feature.properties['Entradas por franja horaria 12-14'] !== null ? Autolinker.link(String(feature.properties['Entradas por franja horaria 12-14'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Entradas por franja horaria 14-16</th>\
+                        <td>' + (feature.properties['Entradas por franja horaria 14-16'] !== null ? Autolinker.link(String(feature.properties['Entradas por franja horaria 14-16'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Entradas por franja horaria 16-18</th>\
+                        <td>' + (feature.properties['Entradas por franja horaria 16-18'] !== null ? Autolinker.link(String(feature.properties['Entradas por franja horaria 16-18'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Entradas por franja horaria 18-20</th>\
+                        <td>' + (feature.properties['Entradas por franja horaria 18-20'] !== null ? Autolinker.link(String(feature.properties['Entradas por franja horaria 18-20'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Entradas por franja horaria 20-22</th>\
+                        <td>' + (feature.properties['Entradas por franja horaria 20-22'] !== null ? Autolinker.link(String(feature.properties['Entradas por franja horaria 20-22'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Entradas por franja horaria 22-00</th>\
+                        <td>' + (feature.properties['Entradas por franja horaria 22-00'] !== null ? Autolinker.link(String(feature.properties['Entradas por franja horaria 22-00'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Entradas por franja horaria Total año</th>\
+                        <td>' + (feature.properties['Entradas por franja horaria Total año'] !== null ? Autolinker.link(String(feature.properties['Entradas por franja horaria Total año'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Cantidaddeviajessegnnmerodeingresosporestacindesubte2017_1_0(feature) {
+            if (feature.properties['q2wHide_Por franja horaria: 2017_1'] >= 540637.000000 && feature.properties['q2wHide_Por franja horaria: 2017_1'] <= 2000000.000000 ) {
+                return {
+                pane: 'pane_Cantidaddeviajessegnnmerodeingresosporestacindesubte2017_1',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/Subte-logo.svg',
+            iconSize: [7.6, 7.6]
+        }),
+            }
+            }
+            if (feature.properties['q2wHide_Por franja horaria: 2017_1'] >= 2000000.000000 && feature.properties['q2wHide_Por franja horaria: 2017_1'] <= 3000000.000000 ) {
+                return {
+                pane: 'pane_Cantidaddeviajessegnnmerodeingresosporestacindesubte2017_1',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/Subte-logo.svg',
+            iconSize: [13.3, 13.3]
+        }),
+            }
+            }
+            if (feature.properties['q2wHide_Por franja horaria: 2017_1'] >= 3000000.000000 && feature.properties['q2wHide_Por franja horaria: 2017_1'] <= 4000000.000000 ) {
+                return {
+                pane: 'pane_Cantidaddeviajessegnnmerodeingresosporestacindesubte2017_1',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/Subte-logo.svg',
+            iconSize: [19.0, 19.0]
+        }),
+            }
+            }
+            if (feature.properties['q2wHide_Por franja horaria: 2017_1'] >= 4000000.000000 && feature.properties['q2wHide_Por franja horaria: 2017_1'] <= 5000000.000000 ) {
+                return {
+                pane: 'pane_Cantidaddeviajessegnnmerodeingresosporestacindesubte2017_1',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/Subte-logo.svg',
+            iconSize: [24.7, 24.7]
+        }),
+            }
+            }
+            if (feature.properties['q2wHide_Por franja horaria: 2017_1'] >= 5000000.000000 && feature.properties['q2wHide_Por franja horaria: 2017_1'] <= 18278756.000000 ) {
+                return {
+                pane: 'pane_Cantidaddeviajessegnnmerodeingresosporestacindesubte2017_1',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/Subte-logo.svg',
+            iconSize: [30.4, 30.4]
+        }),
+            }
+            }
+        }
+        map.createPane('pane_Cantidaddeviajessegnnmerodeingresosporestacindesubte2017_1');
+        map.getPane('pane_Cantidaddeviajessegnnmerodeingresosporestacindesubte2017_1').style.zIndex = 401;
+        map.getPane('pane_Cantidaddeviajessegnnmerodeingresosporestacindesubte2017_1').style['mix-blend-mode'] = 'normal';
+        var layer_Cantidaddeviajessegnnmerodeingresosporestacindesubte2017_1 = new L.geoJson(json_Cantidaddeviajessegnnmerodeingresosporestacindesubte2017_1, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_Cantidaddeviajessegnnmerodeingresosporestacindesubte2017_1',
+            onEachFeature: pop_Cantidaddeviajessegnnmerodeingresosporestacindesubte2017_1,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.marker(latlng, style_Cantidaddeviajessegnnmerodeingresosporestacindesubte2017_1_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_Cantidaddeviajessegnnmerodeingresosporestacindesubte2017_1);
+        map.addLayer(layer_Cantidaddeviajessegnnmerodeingresosporestacindesubte2017_1);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'Cantidad de viajes según número de ingresos<br>por estación de subte (2017)<br /><table><tr><td style="text-align: center;"><img src="legend/Cantidaddeviajessegnnmerodeingresosporestacindesubte2017_1_hasta20000000.png" /></td><td>hasta 2,000,000</td></tr><tr><td style="text-align: center;"><img src="legend/Cantidaddeviajessegnnmerodeingresosporestacindesubte2017_1_200000030000001.png" /></td><td>2,000,000 - 3,000,000</td></tr><tr><td style="text-align: center;"><img src="legend/Cantidaddeviajessegnnmerodeingresosporestacindesubte2017_1_300000040000002.png" /></td><td>3,000,000 - 4,000,000</td></tr><tr><td style="text-align: center;"><img src="legend/Cantidaddeviajessegnnmerodeingresosporestacindesubte2017_1_400000050000003.png" /></td><td>4,000,000 - 5,000,000</td></tr><tr><td style="text-align: center;"><img src="legend/Cantidaddeviajessegnnmerodeingresosporestacindesubte2017_1_50000004.png" /></td><td> 5,000,000+</td></tr></table>': layer_Cantidaddeviajessegnnmerodeingresosporestacindesubte2017_1,'Red de Subte<br /><table><tr><td style="text-align: center;"><img src="legend/ReddeSubte_0_LneaA0.png" /></td><td>Línea A</td></tr><tr><td style="text-align: center;"><img src="legend/ReddeSubte_0_LneaB1.png" /></td><td>Línea B</td></tr><tr><td style="text-align: center;"><img src="legend/ReddeSubte_0_LneaC2.png" /></td><td>Línea C</td></tr><tr><td style="text-align: center;"><img src="legend/ReddeSubte_0_LneaD3.png" /></td><td>Línea D</td></tr><tr><td style="text-align: center;"><img src="legend/ReddeSubte_0_LneaE4.png" /></td><td>Línea E</td></tr><tr><td style="text-align: center;"><img src="legend/ReddeSubte_0_LneaH5.png" /></td><td>Línea H</td></tr></table><br>Fuente: Ministerio de Modernización,<br>publicado por Ministerio de Desarrollo Urbano y Transporte,<br>SS de Tránsito y Transporte,<br>DG de Transporte y Tránsito,<br>Subterráneos Buenos Aires (SBASE)': layer_ReddeSubte_0,},{collapsed:false}).addTo(map);
+        setBounds();
+		L.control.scale({maxWidth:200,imperial:false}).addTo(map);		
+		L.Control.Watermark = L.Control.extend({
+		onAdd: function(map) {
+        var img = L.DomUtil.create('img');
+        img.src = 'images/north1.svg';
+        img.style.width = '50px';
+		img.style.opacity = '0.7';
+        return img;
+		}});
+		L.control.watermark = function(opts) {
+		return new L.Control.Watermark(opts);
+		}
+		L.control.watermark({ position: 'bottomright' }).addTo(map);
+        </script>
+    </body>
+</html>
